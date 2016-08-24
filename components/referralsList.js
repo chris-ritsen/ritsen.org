@@ -1,4 +1,5 @@
 
+import * as actions from "../actions/index";
 import React from "react";
 import { connect } from "react-redux";
 
@@ -7,14 +8,24 @@ let ReferralsList = ({ dispatch, state }) => {
     return (<div></div>);
   }
 
-  let links = Object.keys(state).map((prop, index) => (
-    <tr key={prop}>
-      <td>{prop}</td>
-      <td>{state[prop]}</td>
-      <td>Edit</td>
-      <td>Delete</td>
-    </tr>
-  ));
+  let links = Object.keys(state).map((prop, index) => {
+    const editLink = () => {
+      // TODO: Decide how the user will enter a new link title.
+    };
+
+    const removeLink = () => {
+      dispatch(actions.removeLink(prop));
+    }
+
+    return (
+      <tr key={prop}>
+        <td>{prop}</td>
+        <td>{state[prop]}</td>
+        <td onClick={editLink}>Edit</td>
+        <td onClick={removeLink}>Delete</td>
+      </tr>
+    );
+  });
 
   return (
     <div>
@@ -36,7 +47,6 @@ let ReferralsList = ({ dispatch, state }) => {
 };
 
 const mapProps = (state) => {
-  console.log(state);
   return {
     state
   };
