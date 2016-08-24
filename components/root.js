@@ -1,16 +1,13 @@
 
 import React from "react";
+import { browserHistory, Router, Route } from "react-router";
 
-import AddLink from "./addLink";
-import Header from "./header";
-import ReferralsList from "./referralsList";
+import App from "./app";
 
 const Root = (
-  <div>
-    <Header></Header>
-    <AddLink></AddLink>
-    <ReferralsList></ReferralsList>
-  </div>
+  <Router history={browserHistory}>
+    <Route path="/(:path)" component={App} />
+  </Router>
 );
 
 export default Root;
