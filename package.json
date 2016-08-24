@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "webpack -wd",
+    "postinstall": "webpack -p --config ./webpack.config.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chris Ritsen",
@@ -19,8 +20,11 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.5",
-    "react-router": "^2.7.0",
+    "react-router": "^3.0.0-alpha.3",
     "redux": "^3.5.2",
     "webpack": "^1.13.2"
+  },
+  "engines": {
+    "node": "6.x.x"
   }
 }
