@@ -20,6 +20,10 @@ const link = (state = {}, action) => {
     delete newState[action.title];
     return newState;
   case "ADD_LINK":
+    if (state[action.title]) {
+      return state;
+    }
+
     return Object.assign({}, state, {
       [action.title]: 0
     });

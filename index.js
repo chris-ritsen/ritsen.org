@@ -10,6 +10,13 @@ const store = createStore(link);
 
 store.dispatch(actions.addLink("example"));
 store.dispatch(actions.incrementCounter("example"));
+store.dispatch(actions.incrementCounter("example"));
+store.dispatch(actions.addLink("example"));
+store.dispatch(actions.editLink("example", "another"));
+
+setTimeout(() => {
+  store.dispatch(actions.removeLink("another"));
+}, 2000);
 
 const rootEl = document.getElementById("root");
 

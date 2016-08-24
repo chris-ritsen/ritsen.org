@@ -3,7 +3,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 let ReferralsList = ({ dispatch, state }) => {
-  console.log(state);
+  if (!Object.keys(state).length) {
+    return (<div></div>);
+  }
 
   let links = Object.keys(state).map((prop, index) => (
     <tr key={prop}>
