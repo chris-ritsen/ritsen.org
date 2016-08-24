@@ -1,28 +1,46 @@
 
 import React from "react";
+import { connect } from "react-redux";
 
-const ReferralsList = () => (
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Link title</th>
-          <th>Clicks</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>title</td>
-          <td>0</td>
-          <td>Edit</td>
-          <td>Delete</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-);
+let ReferralsList = ({ dispatch, state }) => {
+  console.log(state);
+
+  let links = Object.keys(state).map((prop, index) => (
+    <tr key={prop}>
+      <td>{prop}</td>
+      <td>{state[prop]}</td>
+      <td>Edit</td>
+      <td>Delete</td>
+    </tr>
+  ));
+
+  return (
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Link title</th>
+            <th>Clicks</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {links}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const mapProps = (state) => {
+  console.log(state);
+  return {
+    state
+  };
+};
+
+ReferralsList = connect(mapProps)(ReferralsList);
 
 export default ReferralsList;
 
