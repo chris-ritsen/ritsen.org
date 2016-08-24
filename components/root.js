@@ -4,7 +4,7 @@ import { browserHistory, Router, Route } from "react-router";
 
 import App from "./app";
 
-const Root = (
+const Root = () => (
   <Router history={browserHistory}>
     <Route path="/(:path)" component={App} />
   </Router>
