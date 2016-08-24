@@ -20,6 +20,14 @@ store.dispatch(actions.incrementCounter("example"));
 
 console.log("Link counter incremented:", store.getState());
 
+store.dispatch(actions.editLink("example", "foobar"));
+
+console.log("Link counter incremented:", store.getState());
+
+store.dispatch(actions.removeLink("foobar"));
+
+console.log("Link counter removed:", store.getState());
+
 const rootEl = document.getElementById("root");
 
 render(<Root store={store} />, rootEl);

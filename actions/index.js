@@ -4,6 +4,17 @@ const addLink = (title) => ({
   title
 });
 
+const editLink = (oldTitle, newTitle) => ({
+  "type": "EDIT_LINK",
+  newTitle,
+  oldTitle
+});
+
+const removeLink = (title) => ({
+  "type": "REMOVE_LINK",
+  title
+});
+
 const incrementCounter = (title) => ({
   "type": "INCREMENT_COUNTER",
   title
@@ -11,6 +22,8 @@ const incrementCounter = (title) => ({
 
 export {
   addLink,
-  incrementCounter
+  editLink,
+  incrementCounter,
+  removeLink
 };
 
