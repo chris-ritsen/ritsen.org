@@ -13,10 +13,16 @@ const AddLink = connect()(({ dispatch }) => {
     dispatch(actions.addLink(title));
   };
 
+  const checkEnter = (event) => {
+    if (event.keyCode === 13) {
+      onClick();
+    }
+  };
+
   return (
     <div>
       <span>Add a link:</span>
-      <input ref={ node => { input = node }} type="text" placeholder="Enter a title…" />
+      <input onKeyUp={checkEnter} ref={ node => { input = node }} type="text" placeholder="Enter a title…" />
       <button onClick={onClick} name="add">Add</button>
     </div>
   );
