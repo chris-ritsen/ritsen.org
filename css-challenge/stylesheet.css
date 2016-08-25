@@ -21,6 +21,7 @@ li .index {
   display: inline-flex;
   flex-basis: 60px;
   flex-grow: 0;
+  flex-shrink: 0;
   font-family: proxima_nova;
   font-size: 22px;
   height: 30px;
