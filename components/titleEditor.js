@@ -1,6 +1,7 @@
 
 import * as actions from "../actions/index";
 import React from "react";
+import { Link, makeHref } from "react-router";
 import { connect } from "react-redux";
 
 let TitleEditor = ({ dispatch, value, editing }) => {
@@ -28,7 +29,24 @@ let TitleEditor = ({ dispatch, value, editing }) => {
       type="text" />
     );
   } else {
-    template = (<span>{value}</span>);
+    const onClick = (event) => {
+      event.preventDefault();
+      window.open("/landing?link=" + value);
+    };
+
+    const style = {
+      "color": "initial",
+      "textDecoration": "none"
+    };
+
+    template = (
+      <Link
+      onClick={onClick}
+      style={style}
+      target="_blank"
+      to="/"
+      >{value}</Link>
+    );
   }
 
   return template;
