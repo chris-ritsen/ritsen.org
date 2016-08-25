@@ -10,7 +10,5 @@ import { render } from "react-dom";
 const rootEl = document.getElementById("root");
 const store = createStore(link, persistState());
 
-console.log(store.getState());
-
 render(<Root store={store} />, rootEl);
 
