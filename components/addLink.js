@@ -1,6 +1,7 @@
 
-import React from "react";
 import * as actions from "../actions/index";
+import React from "react";
+import TitleEditor from "./titleEditor";
 import { connect } from "react-redux";
 
 let AddLink = ({ dispatch }) => {
@@ -19,11 +20,27 @@ let AddLink = ({ dispatch }) => {
     }
   };
 
+  const style = {
+    "base": {
+      "alignItems": "baseline",
+      "display": "flex",
+      "justifyContent": "center"
+    },
+    "addButton": {
+      "marginLeft": "1ex"
+    },
+    "addLink": {
+      "marginRight": "1ex"
+    }
+  };
+
   return (
-    <div>
-      <span>Add a link:</span>
+    <div style={style.base}>
+      <span style={style.addLink}>Add a link:</span>
+      {" "}
       <input onKeyUp={checkEnter} ref={ node => { input = node }} type="text" placeholder="Enter a title…" />
-      <button onClick={onClick} name="add">Add</button>
+      {" "}
+      <button style={style.addButton} onClick={onClick} name="add">Add</button>
     </div>
   );
 };

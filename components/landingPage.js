@@ -6,9 +6,13 @@ import { connect } from "react-redux";
 let LandingPage = ({ dispatch, link, linkText }) => {
   dispatch(actions.incrementCounter(link));
 
+  const style = {
+    "textAlign": "center"
+  };
+
   return (
-    <div>
-      <h1>Your link: {linkText}</h1>
+    <div style={style}>
+      <h1>{linkText} are awesome!</h1>
       <h1>Come join Tim's World Wide Web!</h1>
     </div>
   );

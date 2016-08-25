@@ -5,13 +5,15 @@ const link = (state = {}, action) => {
   switch (action.type) {
   case "EDIT_LINK":
     if (action.oldTitle === action.newTitle) {
-      return state;
+      newState = Object.assign({}, state);
+      newState[action.newTitle].editing = false;
+      return newState;
     }
-
-    // TODO: What about overwriting existing entries?
 
     newState = Object.assign({}, state);
     newState[action.newTitle] = state[action.oldTitle];
+    newState[action.newTitle].editing = false;
+
     delete newState[action.oldTitle];
     return newState;
   case "REMOVE_LINK":
@@ -19,17 +21,39 @@ const link = (state = {}, action) => {
 
     delete newState[action.title];
     return newState;
+  case "START_EDITING":
+    if (!action.title || !state[action.title]) {
+      return state;
+    }
+
+    newState = Object.assign({}, state, {
+      [action.title]: {
+        "editing": true,
+        "hits": state[action.title].hits
+      }
+    });
+
+    return Object.assign({}, state, newState);
   case "ADD_LINK":
     if (!action.title || state[action.title]) {
       return state;
     }
 
     return Object.assign({}, state, {
-      [action.title]: 0
+      [action.title]: {
+        "editing": false,
+        "hits": 0
+      }
     });
   case "INCREMENT_COUNTER":
+    if (state[action.title] === undefined) {
+      return state;
+    }
+
     return Object.assign({}, state, {
-      [action.title]: state[action.title] + 1
+      [action.title]: {
+        "hits": state[action.title].hits + 1
+      }
     });
   default:
     return state;

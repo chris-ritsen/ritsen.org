@@ -1,16 +1,29 @@
 
 import * as actions from "../actions/index";
 import React from "react";
+import TitleEditor from "./titleEditor";
 import { connect } from "react-redux";
+
 
 let ReferralsList = ({ dispatch, state }) => {
   if (!Object.keys(state).length) {
     return (<div></div>);
   }
 
+  let styles = {
+    "base": {
+      "display": "flex",
+      "justifyContent": "center"
+    },
+    "numberColumn": {
+      "textAlign": "right"
+    }
+  };
+
   let links = Object.keys(state).map((prop, index) => {
+
     const editLink = () => {
-      // TODO: Decide how the user will enter a new link title.
+      dispatch(actions.startEditing(prop));
     };
 
     const removeLink = () => {
@@ -18,22 +31,22 @@ let ReferralsList = ({ dispatch, state }) => {
     }
 
     return (
-      <tr key={prop}>
-        <td>{prop}</td>
-        <td>{state[prop]}</td>
-        <td onClick={editLink}>Edit</td>
-        <td onClick={removeLink}>Delete</td>
+      <tr key={prop} style={{backgroundColor: index % 2 === 0 ? "#DEE0E3" : "initial"}}>
+        <td style={styles.cell}><TitleEditor editing={state[prop].editing} value={prop} /></td>
+        <td style={styles.numberColumn}>{state[prop].hits}</td>
+        <td className={"usePointer"} onClick={editLink}>Edit</td>
+        <td className={"usePointer"} onClick={removeLink}>Delete</td>
       </tr>
     );
   });
 
   return (
-    <div>
+    <div style={styles.base}>
       <table>
         <thead>
           <tr>
-            <th>Link title</th>
-            <th>Clicks</th>
+            <th className={"usePointer"}>Link title</th>
+            <th className={"usePointer"}>Clicks</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
