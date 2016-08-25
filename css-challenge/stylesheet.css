@@ -1,0 +1,27 @@
+
+.activity-feed {
+  border: 1px solid red;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li:nth-child(1) {
+  background-color: #26b894;
+}
+
+li:nth-child(2) {
+  background-color: #f29c1e;
+}
+
+li:nth-child(3) {
+  background-color: #e54c3b;
+}
+
+@media screen and (max-width: 767px) {
+  .activity-feed {
+    border: 1px solid blue;
+  }
+}
+
