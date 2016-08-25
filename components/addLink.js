@@ -3,7 +3,7 @@ import React from "react";
 import * as actions from "../actions/index";
 import { connect } from "react-redux";
 
-const AddLink = connect()(({ dispatch }) => {
+let AddLink = ({ dispatch }) => {
   let input;
 
   const onClick = () => {
@@ -26,7 +26,9 @@ const AddLink = connect()(({ dispatch }) => {
       <button onClick={onClick} name="add">Add</button>
     </div>
   );
-});
+};
+
+AddLink = connect()(AddLink);
 
 export default AddLink;
 
