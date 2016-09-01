@@ -1,8 +1,41 @@
 
-const link = (state = {}, action) => {
+const index = (state = {
+  "playlist": [],
+  "volume": null
+}, action) => {
   let newState;
 
   switch (action.type) {
+  case "MPV_VOLUME":
+      newState = Object.assign({}, state);
+      newState["volume"] = action.volume;
+      return newState;
+  case "MPV_PLAYLIST":
+      newState = Object.assign({}, state);
+      newState["playlist"] = action.playlist;
+      return newState;
+  case "MPV_PAUSE":
+      fetch("/mpv/pause", {
+        "body": JSON.stringify({
+          "pause": true
+        }),
+        "headers": new Headers({
+          "Content-Type": "application/json"
+        }),
+        "method": ("POST")
+      })
+      return state;
+  case "MPV_UNPAUSE":
+      fetch("/mpv/pause", {
+        "body": JSON.stringify({
+          "pause": false
+        }),
+        "headers": new Headers({
+          "Content-Type": "application/json"
+        }),
+        "method": ("POST")
+      })
+      return state;
   case "EDIT_LINK":
     if (action.oldTitle === action.newTitle) {
       newState = Object.assign({}, state);
@@ -60,5 +93,5 @@ const link = (state = {}, action) => {
   }
 };
 
-export default link;
+export default index;
 

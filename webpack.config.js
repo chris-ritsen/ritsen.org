@@ -3,7 +3,10 @@ let path = require("path");
 let webpack = require("webpack");
 
 module.exports = {
-  "entry": [ "./index" ],
+  "entry": [
+    "whatwg-fetch",
+    "./client/index"
+  ],
   "module": {
     "loaders": [
       {

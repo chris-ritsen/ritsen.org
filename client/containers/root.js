@@ -4,10 +4,13 @@ import React, { PropTypes } from "react";
 import { Provider } from "react-redux";
 import { browserHistory, Router, Route } from "react-router";
 
+const style = {
+};
+
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/(:path)" component={App} />
+      <Route path="/(:path)" component={App} style={style} />
     </Router>
   </Provider>
 );
