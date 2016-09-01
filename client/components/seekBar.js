@@ -36,8 +36,6 @@ class SeekBar extends Component {
       }
     });
   }
-  componentDidMount() {
-  }
   render() {
     const finished = () => {
       this.state.seeking = false;

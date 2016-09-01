@@ -56,6 +56,11 @@ class MediaPlayer extends Component {
         "display": "flex",
         justifyContent: "center"
       },
+      "current": {
+				// fontFamily: "'Open Sans Condensed', sans-serif",
+				fontFamily: "'PT Sans Narrow', sans-serif",
+        overflowX: "scroll"
+      },
       "button": {
         margin: "1em 1em",
         minHeight: "50px",
@@ -77,85 +82,13 @@ class MediaPlayer extends Component {
           <button style={style.button} onClick={pause}>pause</button>
         </div>
         <SeekBar />
-        <div>{this.state["current"]}</div>
-        <Playlist></Playlist>
+        <div style={style.current}>{this.state["current"]}</div>
       </div>
     );
   }
 }
 
-let Playlist = ({ dispatch, state }) => {
-  let files;
-
-  const listStyle = {
-    "listStyleType": "none",
-    "padding": 0
-  };
-
-  if (state && Array.isArray(state.playlist)) {
-    files = Object.keys(state.playlist).map((prop, index) => {
-      let style = {
-      };
-
-      if (state.playlist[index].current) {
-        style.fontWeight = "bold";
-      }
-
-      return (
-        <li style={style} key={index}>{state.playlist[index].filename}</li>
-      );
-    });
-
-  }
-
-  return <ul style={listStyle}>
-  {files}
-  </ul>
-};
-
-class Volume extends Component {
-  render() {
-    const { state, dispatch } = this.props;
-    let volume = this.props.volume;
-    let input;
-
-    const onChange = debounce(() => {
-      dispatch(actions.mpv.volume(input.value));
-    }, 2000);
-
-    if (!state || Number.isNaN(state.volume)) {
-      volume = "";
-    }
-
-    // FIXME: React is re-rendering this component every time the value
-    // changes.  Debouncing for now.
-
-    return (
-      <label>Volume:
-        <input
-        defaultValue={volume}
-        max="200"
-        min="0"
-        onChange={onChange}
-        ref={ node => { input = node }}
-        step="1"
-        type="text"
-        />
-      </label>
-    );
-  }
-}
-
-const mapStateToProps = ({ playlist, volume }) => {
-  return {
-    playlist,
-    volume
-  };
-};
-
-MediaPlayer = connect(mapStateToProps)(MediaPlayer);
-Volume = connect(mapStateToProps)(Volume);
-Playlist = connect(mapStateToProps)(Playlist);
+MediaPlayer = connect()(MediaPlayer);
 
 export default MediaPlayer;
 

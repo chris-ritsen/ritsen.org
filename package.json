@@ -47,7 +47,9 @@
     "babel-preset-stage-3": "^6.11.0",
     "eslint": "^3.4.0",
     "eslint-plugin-babel": "^3.3.0",
+    "html-webpack-plugin": "^2.22.0",
     "postcss-loader": "^0.11.1",
-    "precss": "^1.4.0"
+    "precss": "^1.4.0",
+    "style-ext-html-webpack-plugin": "^2.0.2"
   }
 }

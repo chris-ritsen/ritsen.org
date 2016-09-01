@@ -35,7 +35,6 @@ io.sockets.on("connection", (socket) => {
   let pathNow;
 
   let getPlaybackPosition = () => {
-    console.log("here", connections);
     let props = [
       "length",
       "path",
@@ -88,13 +87,14 @@ io.sockets.on("connection", (socket) => {
     connections--;
 
     if (connections === 0) {
-      console.log("no longer watching props");
       clearInterval(watchProps);
     }
   });
 
-  watchProps = setInterval(() => {
-    getPlaybackPosition();
-  }, 2000);
+  if (!watchProps) {
+    watchProps = setInterval(() => {
+      getPlaybackPosition();
+    }, 3000);
+  }
 });
 
