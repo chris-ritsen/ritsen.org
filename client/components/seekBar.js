@@ -14,6 +14,7 @@ class SeekBar extends Component {
 
     this.state = {
       "length": 0,
+      "loading": true,
       "seeking": false,
       "slider": null,
       "time-pos": 0
@@ -28,6 +29,7 @@ class SeekBar extends Component {
       }
 
       this.setState(data);
+      this.state.loading = false;
 
       if (!this.state.seeking) {
         this.state.slider.value = data["time-pos"]
@@ -61,6 +63,7 @@ class SeekBar extends Component {
       onKeyUp={finished}
       onMouseUp={finished}
       onBlur={finished}
+      className={this.state.loading ? "loading" : ""}
       style={style}
       max={length}
       min="0"

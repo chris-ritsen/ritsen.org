@@ -29,6 +29,7 @@ class MediaPlayer extends Component {
 
     this.state = {
       "length": 0,
+      "current": "",
       "time-pos": 0
     }
   }
@@ -76,7 +77,7 @@ class MediaPlayer extends Component {
           <button style={style.button} onClick={pause}>pause</button>
         </div>
         <SeekBar />
-        <div>{this.state["path"]}</div>
+        <div>{this.state["current"]}</div>
         <Playlist></Playlist>
       </div>
     );

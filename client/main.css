@@ -1,4 +1,8 @@
 
+input[type=range].loading::-webkit-slider-thumb {
+  opacity: 0.0;
+}
+
 html, body, #root {
   background-color: black;
   color: white;
