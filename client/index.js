@@ -9,6 +9,8 @@ import persistState from "redux-localstorage";
 import { applyMiddleware, createStore } from "redux";
 import { render } from "react-dom";
 
+import css from "./main.css"
+
 const rootEl = document.getElementById("root");
 const store = createStore(reducer, persistState(), applyMiddleware(promise));
 

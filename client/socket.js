@@ -1,13 +1,19 @@
 
 import * as io from "socket.io-client";
 
-let uri = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+let socket;
 
-let socket = io.connect(uri, {
-  "reconnection": true,
-  "reconnectionAttempts": 10,
-  "reconnectionDelay": 500
-});
+export default () => {
+  let uri = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
 
-export default socket;
+  if (!socket) {
+    socket = io.connect(uri, {
+      "reconnection": true,
+      "reconnectionAttempts": 10,
+      "reconnectionDelay": 500
+    });
+  }
+
+  return socket;
+};
 

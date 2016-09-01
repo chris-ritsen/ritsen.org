@@ -1,7 +1,7 @@
 
 const Socket = require("socket.io");
 const express = require("express");
-const path = require("path");
+const resolve = require("path").resolve;
 
 const app = new express();
 const port = process.env.PORT || 3000;
@@ -12,9 +12,9 @@ const mpv = require("./mpv");
 
 app.use("/mpv", mpv.routes);
 
-router.use("/static", express.static(path.resolve(__dirname, "../static")));
-router.get("/main.css", (request, response) => response.sendFile(path.resolve(__dirname, "../common/main.css")));
-router.get("/*", (request, response) => response.sendFile(path.resolve(__dirname, "../common/index.html")));
+router.use("/static", express.static(resolve(__dirname, "../static")));
+router.get("/main.css", (request, response) => response.sendFile(resolve(__dirname, "../common/main.css")));
+router.get("/*", (request, response) => response.sendFile(resolve(__dirname, "../common/index.html")));
 
 app.use(router);
 
@@ -66,7 +66,7 @@ io.sockets.on("connection", (socket) => {
       socket.emit("message", {
         "time-pos": timePos,
         length,
-        path,
+        current,
         pause
       });
     });

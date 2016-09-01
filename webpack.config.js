@@ -1,5 +1,7 @@
 
+let autoprefixer = require("autoprefixer");
 let path = require("path");
+let precss = require("precss");
 let webpack = require("webpack");
 
 module.exports = {
@@ -13,11 +15,23 @@ module.exports = {
         "exclude": /node_modules/,
         "include": __dirname,
         "loaders": [ "babel" ]
+      },
+      {
+        loader: "style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap=inline",
+        test:   /\.css$/
       }
-    ]
+    ],
+    resolve: {
+      extensions: ["", ".js", ".jsx", ".css"],
+      modulesDirectories: [
+        "node_modules"
+      ]
+    }
   },
+  "postcss": () => [precss, autoprefixer],
   "output": {
-    "filename": "./static/bundle.js"
+    "filename": "bundle.js",
+    "path": "./static/"
   }
 };
 

@@ -10,7 +10,7 @@ const style = {
   "flexGrow": "1"
 };
 
-const HomePage = (
+const HomePage = () => (
   <div>
     <h1>Home</h1>
     <Link to={"/media_player"}>Media Player</Link>

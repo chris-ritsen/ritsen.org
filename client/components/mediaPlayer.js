@@ -4,10 +4,17 @@ import React, { Component } from "react";
 import SeekBar from "./seekBar";
 import { connect } from "react-redux";
 import { debounce } from "lodash";
+import Socket from "../socket";
 
-import socket from "../socket";
+let socket;
 
 class MediaPlayer extends Component {
+  componentWillUnmount() {
+    socket.disconnect();
+  }
+  componentWillMount() {
+    socket = Socket();
+  }
   componentDidMount() {
     socket.on("message", (data) => {
       if (data["time-pos"] === null || data["length"] === null) {

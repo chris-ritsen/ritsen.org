@@ -1,9 +1,14 @@
 
 import * as actions from "../actions/index";
 import React, { Component } from "react";
-import socket from "../socket.js"
+import Socket from "../socket.js"
+
+let socket;
 
 class SeekBar extends Component {
+  componentWillUnmount() {
+    socket.disconnect();
+  }
   constructor(props, context) {
     super(props, context);
 
@@ -15,6 +20,8 @@ class SeekBar extends Component {
     }
   }
   componentWillMount() {
+    socket = Socket();
+
     socket.on("message", (data) => {
       if (data["time-pos"] === null || data["length"] === null) {
         return;

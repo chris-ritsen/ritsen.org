@@ -1,5 +1,5 @@
 {
-  "name": "Ambassador Challenge",
+  "name": "Toy React application",
   "success_url": "/",
   "env": {
     "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-nodejs.git"
