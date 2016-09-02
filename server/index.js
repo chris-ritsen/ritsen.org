@@ -34,67 +34,6 @@ io.sockets.on("connection", (socket) => {
   let timeNow;
   let pathNow;
 
-  let getPlaybackPosition = () => {
-    let props = [
-      "length",
-      "path",
-      "pause",
-      "time-pos"
-    ].map(mpv.getProp);
-
-    Promise.all(props).then(([
-      length,
-      current,
-      pause,
-      timePos
-    ]) => {
-      if (timeNow === undefined) {
-        timeNow = timePos;
-      } else {
-        if (timeNow === timePos) {
-          return;
-        }
-      }
-
-      if (!pathNow && current) {
-        pathNow = current;
-      }
-
-      timeNow = timePos;
-
-      socket.emit("message", {
-        "time-pos": timePos,
-        length,
-        current,
-        pause
-      });
-    });
-  };
-
-  getPlaybackPosition();
-
-  connections++;
-
-  socket.on("message", (data) => {
-    console.log("message:", data);
-  });
-
-  socket.on("action", (data) => {
-    console.log("action:", data);
-  });
-
-  socket.on("disconnect", () => {
-    connections--;
-
-    if (connections === 0) {
-      clearInterval(watchProps);
-    }
-  });
-
-  if (!watchProps) {
-    watchProps = setInterval(() => {
-      getPlaybackPosition();
-    }, 3000);
-  }
+  console.log("connected");
 });
 

@@ -16,13 +16,6 @@ class MediaPlayer extends Component {
     socket = Socket();
   }
   componentDidMount() {
-    socket.on("message", (data) => {
-      if (data["time-pos"] === null || data["length"] === null) {
-        return;
-      }
-
-      this.setState(data);
-    });
   }
   constructor(props, context) {
     super(props, context);
@@ -81,7 +74,7 @@ class MediaPlayer extends Component {
           <button style={style.button} onClick={unpause}>unpause</button>
           <button style={style.button} onClick={pause}>pause</button>
         </div>
-        <SeekBar />
+        {/* <SeekBar /> */}
         <div style={style.current}>{this.state["current"]}</div>
       </div>
     );
