@@ -1,0 +1,226 @@
+
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "amd": true,
+    "browser": true,
+    "es6": true,
+    "jquery": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "modules": true,
+    "blockBindings": false,
+    "forOf": false,
+    "jsx": false
+  },
+  "plugins": [
+    "angular"
+  ],
+  "globals": {
+    "_": true,
+    "angular": true,
+    "countdown": true,
+    "expediteServicesModule": true,
+    "google": true,
+    "jQuery": true,
+    "kendo": true,
+    "moment": true,
+    "xpoNlmModule": true
+  },
+  "rules": {
+    "angular/definedundefined": 0,
+    "angular/di": 0,
+    "angular/document-service": 0,
+    "angular/interval-service": 0,
+    "angular/json-functions": 0,
+    "angular/log": 0,
+    "angular/module-getter": 0,
+    "angular/ng_angularelement": 0,
+    "angular/ng_controller_as": 0,
+    "angular/ng_controller_as_vm": 0,
+    "angular/ng_controller_name": 0,
+    "angular/ng_definedundefined": 0,
+    "angular/ng_di": 0,
+    "angular/ng_json_functions": 0,
+    "angular/ng_module_getter": 0,
+    "angular/ng_no_private_call": 0,
+    "angular/ng_no_services": 0,
+    "angular/ng_on_watch": 0,
+    "angular/ng_typecheck_number": 0,
+    "angular/ng_typecheck_object": 0,
+    "angular/ng_window_service": 0,
+    "angular/timeout-service": 0,
+    "angular/typecheck-function": 0,
+    "angular/typecheck-object": 0,
+    "angular/window-service": 0,
+    "camelcase": 0,
+    "curly": 1,
+    "dot-notation": [
+      0, 
+      {
+        "allowKeywords": true,
+        "allowPattern": ""
+      }
+    ],
+    "eol-last": 1,
+    "eqeqeq": 0,
+    "guard-for-in": 1,
+    "new-cap": 0,
+    "new-parens": 1,
+    "newline-after-var": 1,
+    "no-alert": 1,
+    "no-cond-assign": 1,
+    "no-constant-condition": 1,
+    "no-debugger": 1,
+    "no-delete-var": 1,
+    "no-dupe-args": 1,
+    "no-dupe-keys": 1,
+    "no-duplicate-case": 1,
+    "no-else-return": 1,
+    "no-empty": 1,
+    "no-eq-null": 1,
+    "no-eval": 1,
+    "no-ex-assign": 1,
+    "no-extend-native": 1,
+    "no-extra-semi": 1,
+    "no-fallthrough": 1,
+    "no-func-assign": 1,
+    "no-implied-eval": 1,
+    "no-inline-comments": 0,
+    "no-inner-declarations": 1,
+    "no-invalid-regexp": 1,
+    "no-irregular-whitespace": 0,
+    "no-iterator": 1,
+    "no-labels": 1,
+    "no-lone-blocks": 1,
+    "no-mixed-spaces-and-tabs": 1,
+    "no-multi-spaces": 1,
+    "no-multi-str": 1,
+    "no-multiple-empty-lines": 1,
+    "no-new": 1,
+    "no-new-func": 1,
+    "no-new-wrappers": 1,
+    "no-obj-calls": 1,
+    "no-octal": 1,
+    "no-octal-escape": 1,
+    "no-param-reassign": 1,
+    "no-proto": 1,
+    "no-redeclare": 1,
+    "quote-props": 0,
+    "no-return-assign": 1,
+    "no-script-url": 1,
+    "no-self-compare": 1,
+    "no-ternary": 0,
+    "no-throw-literal": 1,
+    "no-trailing-spaces": 1,
+    "no-undef": 1,
+    "no-underscore-dangle": 0,
+    "no-unreachable": 1,
+    "no-unused-expressions": 0,
+    "no-unused-vars": 0,
+    "no-use-before-define": 0,
+    "no-void": 1,
+    "no-warning-comments": 0,
+    "no-with": 1,
+    "one-var": 0,
+    "semi": 0,
+    "space-infix-ops": 1,
+    "use-isnan": 1,
+    "valid-typeof": 1,
+    "vars-on-top": 1,
+    "wrap-iife": 1,
+    "max-nested-callbacks": [
+      0,
+      4
+    ],
+    "indent": [
+      0,
+      4
+    ],
+    "brace-style": [
+      1,
+      "1tbs", {
+        "allowSingleLine": true
+      }
+    ],
+    "no-shadow": [
+      2,
+      {
+        "hoist": "functions"
+      }
+    ],
+    "max-len": [
+      1,
+      200,
+      2
+    ],
+    "semi-spacing": [
+      1,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "strict": [
+      0,
+      "global"
+    ],
+    "comma-dangle": [
+      1,
+      "never"
+    ],
+    "sort-vars": [
+      2, {
+        "ignoreCase": false
+      }
+    ],
+    "comma-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "spaced-comment": [
+      1,
+      "always"
+    ],
+    "keyword-spacing": [
+      1,
+      {}
+    ],
+    "comma-style": [
+      2,
+      "last"
+    ],
+    "lines-around-comment": [
+      2,
+      {
+        "afterBlockComment": true,
+        "afterLineComment": false,
+        "beforeBlockComment": true,
+        "beforeLineComment": false
+      }
+    ],
+    "space-before-blocks": [
+      1,
+      "always"
+    ],
+    "quotes": [
+      0,
+      "double"
+    ]
+  },
+  "settings": {
+    "ecmascript": 6,
+    "jsx": true
+  }
+}
+
