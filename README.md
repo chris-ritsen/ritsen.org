@@ -1,3 +1,4 @@
+
 # ritsen.org
 Personal website
 
@@ -6,5 +7,6 @@ Personal website
 - Radium
 - React
 - React-Router
+- Redux
 - Server-side rendering
 
