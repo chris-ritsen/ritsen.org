@@ -18,17 +18,17 @@ module.exports = {
         "loaders": [ "babel" ]
       },
       {
-        loader: "style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap=inline",
-        test:   /\.css$/
+        "loader": "style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap=inline",
+        "test":   /\.css$/
       },
-			{
-				loader: 'file?name=public/fonts/[name].[ext]',
-				test: /\.(eot|svg|ttf|woff|woff2)$/
+      {
+        "loader": 'file?name=public/fonts/[name].[ext]',
+        "test": /\.(eot|svg|ttf|woff|woff2)$/
       }
     ],
-    resolve: {
-      extensions: ["", ".js", ".jsx", ".css"],
-      modulesDirectories: [
+    "resolve": {
+      "extensions": ["", ".js", ".jsx", ".css"],
+      "modulesDirectories": [
         "node_modules"
       ]
     }
