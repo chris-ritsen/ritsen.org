@@ -15,7 +15,8 @@ learning and testing new technologies.
 - Webpack
 
 ## Features
-- Server-side rendering
 - Audio player that streams from my local MPD instance
+- List of articles
+- Server-side rendering
 - Video player controls that hook into an instance of MPV
 
