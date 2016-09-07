@@ -30,20 +30,24 @@ const seek = (timePos) => {
   };
 };
 
-const volume = (newVolume) => (
-  fetch("/mpv/volume", {
-    "body": (newVolume ? JSON.stringify({
-      "volume": newVolume
+const setProp = (propName, propValue) => (
+  // TODO: Convert string, given types of properties
+
+  fetch(`/mpv/${propName}`, {
+    "body": (propValue || propValue === 0 ? JSON.stringify({
+      [propName]: propValue
     }) : undefined),
     "headers": new Headers({
       "Content-Type": "application/json"
     }),
-    "method": (newVolume ? "POST" : "GET")
+    "method": ("POST")
   })
   .then(response => response.json())
   .then((prop) => ({
-    "type": "MPV_VOLUME",
-    "volume": prop.volume
+    "type": "MPV_PROP",
+    prop: {
+      [propName]: prop[propName]
+    }
   }))
 );
 
@@ -57,7 +61,7 @@ export {
   pause,
   playlist,
   seek,
-  unpause,
-  volume
+  setProp,
+  unpause
 };
 

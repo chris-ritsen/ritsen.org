@@ -12,7 +12,7 @@ class HomePage extends Component {
       base: {
         "backgroundColor": "black",
         "display": "flex",
-        flexDirection: "column",
+        "flexDirection": "column",
         "flexGrow": "1"
       },
       "main": {

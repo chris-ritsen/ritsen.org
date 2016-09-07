@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 class SiteHeader extends Component {
   render() {
-    let style = {
+    const style = {
       footer: {
         "borderTop": "1px solid white",
         "display": "flex",
@@ -14,16 +14,21 @@ class SiteHeader extends Component {
         "padding": "2.5rem 0",
         "textTransform": "uppercase"
       },
+      "links": {
+        "display": "flex"
+      },
       "link": {
-        fontFamily: "'Open Sans', sans-serif",
-        padding: "0 0.5rem"
+        "fontFamily": "'Open Sans', sans-serif",
+        "padding": "0 0.5rem"
       }
     };
 
     return (
       <footer style={style.footer}>
-        <a target="_blank" style={style.link} href="mailto:chris.ritsen@gmail.com?su=Hello!">email</a>
-        <a target="_blank" style={style.link} href="https://github.com/chris-ritsen">github</a>
+        <ul style={style.links}>
+          <li><a target="_blank" style={style.link} href="mailto:chris.ritsen@gmail.com?su=Hello!">email</a></li>
+          <li><a target="_blank" style={style.link} href="https://github.com/chris-ritsen">github</a></li>
+        </ul>
       </footer>
     );
   }

@@ -1,4 +1,6 @@
 
+import "whatwg-fetch";
+
 let doPost = (url, body) => {
   fetch(url, {
     "body": JSON.stringify(body),
@@ -16,6 +18,10 @@ const index = (state = {
   let newState;
 
   switch (action.type) {
+  case "MPV_PROP":
+      newState = Object.assign({}, state, action.prop);
+      // console.log(state, action, newState);
+      return newState;
   case "MPV_VOLUME":
       newState = Object.assign({}, state);
       newState["volume"] = action.volume;

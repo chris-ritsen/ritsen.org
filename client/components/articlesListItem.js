@@ -9,13 +9,17 @@ class ArticlesListItem extends Component {
         "display": "flex",
         "flexDirection": "column",
         "padding": "0.5rem"
+      },
+      "title": {
+        "margin": "0",
+        "padding": "0"
       }
     };
 
     return (
-      <Link style={style.postLink} to={"/article/2016/09/01/something-to-write-about"}>
-      <time>1 Sep 2016</time>
-      Something to write about
+      <Link style={style.postLink} to={this.props.to}>
+      <time>{this.props.time}</time>
+      <p style={style.title}>{this.props.children}</p>
       </Link>
     );
   }

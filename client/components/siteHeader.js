@@ -1,10 +1,23 @@
 
-import { Link } from "react-router";
+import * as media from "../media";
+import Radium from "radium";
 import React, { Component } from "react";
+import { Link } from "react-router";
 
 class SiteHeader extends Component {
   render() {
-    let style = {
+    const links = [
+      {
+        text: "Media Player",
+        to: "/media_player"
+      },
+      {
+        text: "Audio Player",
+        to: "/audio_player"
+      }
+    ];
+
+    const style = {
       "header": {
         "alignItems": "center",
         "borderBottom": "1px solid white",
@@ -12,17 +25,62 @@ class SiteHeader extends Component {
         "flexDirection": "row",
         "flexShrink": 0,
         "justifyContent": "center",
-        "margin": "1.5rem 0",
+        "margin": "0 0 1.5rem 0",
         "padding": "1.5rem 0"
       },
+      "links": {
+        [media.huge.portrait]: {
+          "display": "flex",
+          "flexBasis": "200px",
+          "justifyContent": "space-around"
+        },
+        [media.huge.landscape]: {
+          "display": "flex",
+          "flexBasis": "200px",
+          "justifyContent": "space-around"
+        }
+      },
+      "link": {
+        "padding": "0.5rem 0"
+      },
       "headerCell": {
-        "alignItems": "baseline",
+        "alignItems": (links.length > 1) ? "center" : "baseline",
         "display": "flex",
         "flexBasis": "700px",
         "flexDirection": "row",
-        "justifyContent": "space-between"
+        "justifyContent": "space-between",
+        [media.huge.portrait]: {
+          "alignItems": "baseline",
+          "flexBasis": "920px"
+        },
+        [media.huge.landscape]: {
+          "alignItems": "baseline",
+          "flexBasis": "920px"
+        },
+        [media.mobile.landscape]: {
+          "justifyContent": "space-around"
+        },
+        [media.mobile.portrait]: {
+          "justifyContent": "space-around"
+        }
       }
     };
+
+    let siteLinks = (() => {
+      let mapLinks = (link, index) => {
+        return (
+          <li style={style.link} key={index}>
+            <Link to={link.to}>{link.text}</Link>
+          </li>
+        );
+      };
+
+      return (
+        <ul style={style.links}>
+        {links.map(mapLinks)}
+        </ul>
+      );
+    })();
 
     return (
       <header style={style.header}>
@@ -30,16 +88,14 @@ class SiteHeader extends Component {
           <h1>
             <Link to={"/"}>Chris Ritsen</Link>
           </h1>
-          <ul>
-            <li>
-              <Link to={"/media_player"}>Media Player</Link>
-            </li>
-          </ul>
+          {siteLinks}
         </div>
       </header>
     );
   }
 }
+
+SiteHeader = Radium(SiteHeader);
 
 export default SiteHeader;
 

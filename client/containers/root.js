@@ -1,18 +1,30 @@
 
+import Article from "../components/article";
+import AudioPlayer from "../containers/audioPlayer";
+import HomePage from "../components/homePage";
+import MediaPlayer from "../containers/mediaPlayer";
 import React, { PropTypes } from "react";
 import { Provider } from "react-redux";
+import { StyleRoot} from "radium";
 import { browserHistory, Router, Route } from "react-router";
-import MediaPlayer from "../components/mediaPlayer";
-import HomePage from "../components/homePage";
-import Article from "../components/article";
+
+// import { match, Router } from "react-router";
+// import routes from "./routes";
+
+// match({ history, routes }, (error, redirectLocation, renderProps) => {
+//   render(<Router {...renderProps} />, rootEl)
+// })
 
 const Root = ({ store }) => (
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={HomePage} />
-      <Route path="/article/:year/:month/:day/:slug" component={Article} />
-      <Route path="/media_player" component={MediaPlayer} />
-    </Router>
+    <StyleRoot id="style-root">
+      <Router history={browserHistory}>
+        <Route path="/" component={HomePage} />
+        <Route path="/article/:year/:month/:day/:slug" component={Article} />
+        <Route path="/media_player" component={MediaPlayer} />
+        <Route path="/audio_player" component={AudioPlayer} />
+      </Router>
+    </StyleRoot>
   </Provider>
 );
 

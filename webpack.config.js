@@ -7,6 +7,7 @@ let webpack = require("webpack");
 module.exports = {
   "entry": [
     "whatwg-fetch",
+    "warning",
     "./client/index"
   ],
   "module": {

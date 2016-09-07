@@ -16,8 +16,6 @@ class SeekBar extends Component {
       "time-pos": 0
     }
   }
-  componentWillMount() {
-  }
   render() {
     const finished = () => {
       this.state.seeking = false;

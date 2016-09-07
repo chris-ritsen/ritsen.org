@@ -1,12 +1,20 @@
 
+import * as media from "../media";
+import Radium from "radium";
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router";
+import dateformat from "dateformat";
+import { withRouter } from "react-router";
 
 import SiteFooter from "./siteFooter.js";
 import SiteHeader from "./siteHeader.js";
 
 class Article extends Component {
   render() {
+    const slug = this.props.router.params.slug;
+    let article = require("../articles/" + slug + ".js").default;
+
+    let timestamp = dateformat(article.time, "d mmm yyyy");
+
     const style = {
       "base": {
         "backgroundColor": "black",
@@ -17,28 +25,60 @@ class Article extends Component {
       "main": {
         "display": "flex",
         "flexShrink": 0,
-        "justifyContent": "center"
+        "justifyContent": "center",
+        [media.mobile.landscape]: {
+          "margin": "0 0.75rem"
+        },
+        [media.mobile.portrait]: {
+          "margin": "0 0.75rem"
+        }
       },
       "article": {
-        "fontSize": "1.5rem"
+        "fontSize": "1.5rem",
+        [media.mobile.landscape]: {
+          "fontSize": "1.0rem"
+        },
+        [media.mobile.portrait]: {
+          "fontSize": "1.25rem"
+        }
       },
       "articleTime": {
         "display": "flex",
         "fontFamily": "'Open Sans', sans-serif",
         "fontSize": "1.6rem",
-        "justifyContent": "center"
+        "justifyContent": "center",
+        [media.mobile.landscape]: {
+          "fontSize": "1.6rem"
+        },
+        [media.mobile.portrait]: {
+          "fontSize": "1.6rem"
+        }
       },
       "articleHeader": {
         "display": "flex",
         "justifyContent": "center",
         "fontSize": "2.5rem",
-        "margin": "0 0 1.5rem 0"
+        "margin": "0 0 1.5rem 0",
+        [media.mobile.landscape]: {
+          "textAlign": 'center',
+          "fontSize": "1.9rem"
+        },
+        [media.mobile.portrait]: {
+          textAlign: 'center',
+          "fontSize": "1.9rem"
+        }
       },
       "sectionHeader": {
         "display": "flex",
         "justifyContent": "center",
         "fontSize": "2.0rem",
-        "margin": "0 0 1.5rem 0"
+        "margin": "0 0 1.5rem 0",
+        [media.mobile.landscape]: {
+          "fontSize": "1.6rem"
+        },
+        [media.mobile.portrait]: {
+          "fontSize": "1.6rem"
+        }
       },
       "post": {
         "display": "flex",
@@ -51,10 +91,17 @@ class Article extends Component {
       "mainCell": {
         "display": "flex",
         "flexBasis": "700px",
-        "flexDirection": "column"
+        "flexDirection": "column",
+        "margin": "0 1.25rem",
+        [media.huge.portrait]: {
+          "flexBasis": "920px"
+        },
+        [media.huge.landscape]: {
+          "flexBasis": "920px"
+        }
       },
       "mainHeader": {
-        "margin": "0 0 2.5rem 0"
+        "margin": "0"
       },
       "postLink": {
         "display": "flex",
@@ -62,88 +109,17 @@ class Article extends Component {
       }
     };
 
-    let articleBody = (
-
-<div>
-  <section>
-    <p>
-{`
-
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-
-`}
-    </p>
-  </section>
-
-  <section>
-    <h3 style={style.sectionHeader}>a dumb article</h3>
-    <p>
-{`
-
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-This is just a dumb article to test out this website.
-
-`}
-    </p>
-  </section>
-</div>
-
-  );
-
     return (
       <div style={style.base}>
         <SiteHeader />
         <main style={style.main}>
           <div style={style.mainCell}>
             <header style={style.mainHeader}>
-              <h2 style={style.articleHeader}>Something to write about</h2>
-              <time style={style.articleTime}>1 Sep 2016</time>
+              <h2 style={style.articleHeader}>{article.title}</h2>
+              <time style={style.articleTime}>{timestamp}</time>
             </header>
             <article style={style.article}>
-            {articleBody}
+            {article.text}
             </article>
           </div>
         </main>
@@ -153,7 +129,5 @@ This is just a dumb article to test out this website.
   }
 }
 
-Article = withRouter(Article);
-
-export default Article;
+Article = withRouter(Radium(Article)); export default Article;
 

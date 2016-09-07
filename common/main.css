@@ -1,6 +1,49 @@
 
 @import 'https://fonts.googleapis.com/css?family=Crimson+Text|Open+Sans:300|PT+Sans+Narrow';
 
+#style-root.loading {
+  visibility: hidden;
+}
+
+@media only screen 
+and (max-device-height: 667px) 
+and (max-device-width: 375px) 
+and (orientation: portrait)
+and (min-device-height: 0)
+and (min-device-width: 0) {
+  html, body, #root, #style-root {
+		/* color: red !important; */
+	}
+}
+
+@media only screen 
+and (max-device-width: 375px) 
+and (max-device-height: 667px) 
+and (orientation: landscape)
+and (min-device-height: 0)
+and (min-device-width: 0) {
+  html, body, #root, #style-root {
+		/* color: blue !important; */
+	}
+}
+
+fieldset {
+  border: 1px solid white;
+  margin: 1rem 0;
+  border-radius: 12px;
+  display: flex;
+  flex-shrink: 0;
+}
+
+fieldset legend {
+  font-size: 1.5rem;
+  border-color: white;
+  border-width: 1px;
+  border-style: hidden solid;
+  margin: auto;
+  padding: 0 0.5rem;
+}
+
 input[type=range].loading::-webkit-slider-thumb {
   opacity: 0.0;
 }
@@ -10,22 +53,23 @@ input[type=range] {
   -webkit-appearance: none !important;
   background:-webkit-gradient(linear, center top, center bottom, from(#CFDCDD), to(#DFE9EA), color-stop(50%, #DFE9EA));
   border-radius: 8px;
-  height: 20px;
+  height: 1px;
   transition: background 450ms;
+  margin: 2rem 0;
 }
 
 input[type=range]::-webkit-slider-thumb {
 	-webkit-appearance: none !important;
 	background: #AAAAAA;
 	border-color: #000000;
-	border-radius: 15px;
+	border-radius: 20px;
 	border-style: solid;
 	border-width: 1px;
-	height: 30px;
-	width: 30px;
+	height: 40px;
+	width: 40px;
 }
 
-html, body, #root {
+html, body, #root, #style-root {
   background-color: black;
   color: white;
   display: flex;
@@ -35,6 +79,20 @@ html, body, #root {
   padding: 0;
   width: 100%;
 	font-family: 'Crimson Text', serif;
+}
+
+article {
+  a {
+    color: darkorange;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }      
+
+  ul {
+    list-style-type: disc;
+  }
 }
 
 ul {
