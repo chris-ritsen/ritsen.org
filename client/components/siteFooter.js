@@ -27,7 +27,7 @@ class SiteHeader extends Component {
       <footer style={style.footer}>
         <ul style={style.links}>
           <li><a target="_blank" style={style.link} href="mailto:chris.ritsen@gmail.com?su=Hello!">email</a></li>
-          <li><a target="_blank" style={style.link} href="https://github.com/chris-ritsen">github</a></li>
+          <li><a target="_blank" style={style.link} href="https://github.com/chris-ritsen/ritsen.org">github</a></li>
         </ul>
       </footer>
     );
