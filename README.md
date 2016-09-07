@@ -6,6 +6,7 @@ learning and testing new technologies.
 ## Tools
 - Babel (ES6 / ES7)
 - Express
+- Node
 - Radium
 - React
 - React-Router
