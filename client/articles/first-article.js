@@ -71,7 +71,10 @@ This was trickier because I have some wrappers on my React components, such as
 Radium and react-router, but it seems to be working now.  I added a loading
 class to the Radium style-root element to avoid visibly rendering anything
 before Radium's media queries kick in.  This is an obvious disadvantage to
-using inline styling.
+using inline styling.  React is complaining that the server-side markup
+differs from the client-side markup due to the differences in classes and
+inline styles, but without making both render to an even more basic view, I
+can't resolve this easily.
 </p>
 
 <p>

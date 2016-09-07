@@ -5,10 +5,10 @@ import HomePage from "../client/components/homePage";
 import MediaPlayer from "../client/containers/mediaPlayer";
 import React from "react";
 import { Provider } from "react-redux";
-import { createRoutes, Router, Route } from "react-router";
+import { browserHistory, createRoutes, Router, Route } from "react-router";
 
 const routes = (
-  <Router>
+  <Router history={browserHistory}>
     <Route path="/" component={HomePage} />
     <Route path="/article/:year/:month/:day/:slug" component={Article} />
     <Route path="/media_player" component={MediaPlayer} />
@@ -16,5 +16,5 @@ const routes = (
   </Router>
 );
 
-export default createRoutes(routes);
+export default routes;
 

@@ -12,7 +12,9 @@ let socket;
 
 class AudioPlayer extends Component {
   componentWillUnmount() {
-    socket.disconnect();
+    if (socket) {
+      socket.disconnect();
+    }
   }
   componentWillMount() {
     // TODO: React's server rendering doesn't have access to fetch
@@ -32,7 +34,6 @@ class AudioPlayer extends Component {
       this.setState({
         current
       });
-      console.log(this.state.current);
     });
   }
   constructor(props, context) {

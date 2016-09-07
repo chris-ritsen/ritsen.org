@@ -5,7 +5,7 @@ const resolve = require("path").resolve;
 const systemd = require("systemd");
 
 import React from "react";
-import { match, RouterContext } from "react-router";
+import { createRoutes, match, RouterContext } from "react-router";
 import { renderToString } from "react-dom/server";
 import Root from "../client/containers/root";
 
@@ -24,6 +24,7 @@ import webpack from 'webpack'
 // import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 import routes from "../client/routes";
+
 import { StyleRoot} from "radium";
 import { Provider } from "react-redux";
 
@@ -36,27 +37,27 @@ import { createStore } from "redux";
 
 const renderFullPage = (html, preloadedState) => {
   return `
-    <!doctype html>
-    <html>
-      <head>
-        <title></title>
-      </head>
-    <style>
-    </style>
-    <meta
-    content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"
-    name="viewport" />
-    <link href="/main.css" rel="stylesheet" />
-      <body>
-        <div id="root">${html}</div>
-        <script src="/static/bundle.js"></script>
-      </body>
-    </html>
-    `
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+  </head>
+<style>
+</style>
+<meta
+content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"
+name="viewport" />
+<link href="/main.css" rel="stylesheet" />
+  <body>
+    <div id="root">${html}</div>
+    <script src="/static/bundle.js"></script>
+  </body>
+</html>
+`
 };
 
 const handleRender = (req, res) => {
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+  match({ routes: createRoutes(routes), location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {

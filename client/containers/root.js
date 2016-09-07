@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import { StyleRoot} from "radium";
 import { browserHistory, Router, Route } from "react-router";
 
+import routes from "../routes";
+
 // import { match, Router } from "react-router";
 // import routes from "./routes";
 
@@ -18,12 +20,7 @@ import { browserHistory, Router, Route } from "react-router";
 const Root = ({ store }) => (
   <Provider store={store}>
     <StyleRoot id="style-root">
-      <Router history={browserHistory}>
-        <Route path="/" component={HomePage} />
-        <Route path="/article/:year/:month/:day/:slug" component={Article} />
-        <Route path="/media_player" component={MediaPlayer} />
-        <Route path="/audio_player" component={AudioPlayer} />
-      </Router>
+    {routes}
     </StyleRoot>
   </Provider>
 );
