@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { StyleRoot} from "radium";
 import { createRoutes, match, RouterContext } from "react-router";
 import { createStore } from "redux";
-import { renderToString } from "react-dom/server";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 
 const renderFullPage = (html, preloadedState) => {
   return `
@@ -42,7 +42,7 @@ const handleRender = (req, res) => {
     } else if (renderProps) {
       const store = createStore(reducer);
 
-      const html = renderFullPage(renderToString(
+      const html = renderFullPage(renderToStaticMarkup(
         <Provider store={store}>
           <StyleRoot
           className="loading"
@@ -60,7 +60,7 @@ const handleRender = (req, res) => {
 
 };
 
-export {
+module.exports = {
   renderFullPage,
   handleRender
 };

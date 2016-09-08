@@ -2,42 +2,11 @@
 import { spawn } from "child_process";
 import { startsWith, throttle } from "lodash";
 
-const media_player = "/home/chris/.scripts/py/media_player";
 const spawnSlow = throttle(spawn, 80);
 let watchingMpd = false;
 
-const checkOutputForever = function (script, args) {
-  let child = spawn(script, args);
-
-  child.stdout.on("data", (data) => {
-    let messages = data.toString("utf8").trim().split("\n");
-
-    messages.forEach((message) => {
-      this.emit("mpd", { message });
-
-      if (message === "player") {
-        getCurrent().then(({current, paused}) => {
-          this.emit("mpd", { current, paused });
-        });
-      }
-    })
-  });
-};
-
-const socket_connected = function (socket) {
-  let timeNow;
-  let pathNow;
-
-  if (!watchingMpd) {
-    checkOutputForever.call(this, "mpc", [
-      "idleloop"
-    ]);
-    watchingMpd = true;
-  }
-};
-
 const checkOutput = (script, args) => {
-  let child = spawnSlow(script, args);
+  let child = spawn(script, args);
 
   let promise = new Promise((resolve, reject) => {
     let buffer = "";
@@ -69,7 +38,36 @@ const getCurrent = () => {
       current,
       paused
     };
+  }, (error) => { console.log(error); });
+};
+
+const checkOutputForever = function (script, args) {
+  let child = spawn(script, args);
+
+  child.stdout.on("data", (data) => {
+    let messages = data.toString("utf8").trim().split("\n");
+
+    messages.forEach((message) => {
+      this.emit("mpd", { message });
+    })
+
+    getCurrent().then(({current, paused}) => {
+      console.log(current, paused);
+      this.emit("mpd", { current, paused });
+    });
   });
+};
+
+const socket_connected = function (socket) {
+  let timeNow;
+  let pathNow;
+
+  if (!watchingMpd) {
+    checkOutputForever.call(this, "mpc", [
+      "idleloop"
+    ]);
+    watchingMpd = true;
+  }
 };
 
 const handlers = {
@@ -161,8 +159,16 @@ const routes = (() => {
   return app;
 })();
 
+
+const sockets = [
+  {
+    "connection": socket_connected
+  }
+];
+
+
 module.exports = {
   routes,
-  socket_connected
+  sockets
 };
 
