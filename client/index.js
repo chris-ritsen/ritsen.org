@@ -10,7 +10,7 @@ import thunk from "redux-thunk";
 import { applyMiddleware, createStore } from "redux";
 import { render } from "react-dom";
 
-// import css from "../common/main.css"
+import css from "../common/main.css"
 
 const rootEl = document.getElementById("root");
 const store = createStore(reducer, persistState(), applyMiddleware(

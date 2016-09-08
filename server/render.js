@@ -42,7 +42,7 @@ const handleRender = (req, res) => {
     } else if (renderProps) {
       const store = createStore(reducer);
 
-      const html = renderFullPage(renderToStaticMarkup(
+      const html = renderFullPage(renderToString(
         <Provider store={store}>
           <StyleRoot
           className="loading"
