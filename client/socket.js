@@ -14,7 +14,7 @@ export default () => {
     socket = io.connect(uri, {
       "reconnection": true,
       "reconnectionAttempts": 10,
-      "reconnectionDelay": 500
+      "reconnectionDelay": 1000
     });
   }
 

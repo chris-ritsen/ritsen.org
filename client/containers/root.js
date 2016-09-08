@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import { StyleRoot} from "radium";
 import { browserHistory, Router, Route } from "react-router";
 
-import routes from "../routes";
+import routes from "../../common/routes";
 
 // import { match, Router } from "react-router";
 // import routes from "./routes";

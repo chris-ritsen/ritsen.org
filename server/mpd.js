@@ -1,11 +1,43 @@
 
-const { startsWith, throttle } = require("lodash");
+import { spawn } from "child_process";
+import { startsWith, throttle } from "lodash";
 
 const media_player = "/home/chris/.scripts/py/media_player";
-const spawn = throttle(require("child_process").spawn, 80);
+const spawnSlow = throttle(spawn, 80);
+let watchingMpd = false;
+
+const checkOutputForever = function (script, args) {
+  let child = spawn(script, args);
+
+  child.stdout.on("data", (data) => {
+    let messages = data.toString("utf8").trim().split("\n");
+
+    messages.forEach((message) => {
+      this.emit("mpd", { message });
+
+      if (message === "player") {
+        getCurrent().then(({current, paused}) => {
+          this.emit("mpd", { current, paused });
+        });
+      }
+    })
+  });
+};
+
+const socket_connected = function (socket) {
+  let timeNow;
+  let pathNow;
+
+  if (!watchingMpd) {
+    checkOutputForever.call(this, "mpc", [
+      "idleloop"
+    ]);
+    watchingMpd = true;
+  }
+};
 
 const checkOutput = (script, args) => {
-  let child = spawn(script, args);
+  let child = spawnSlow(script, args);
 
   let promise = new Promise((resolve, reject) => {
     let buffer = "";
@@ -30,29 +62,31 @@ const getCurrent = () => {
     "[[%artist% - ]%title%]|[%file%]"
   ]).then((lines) => {
     let arr = lines.split("\n");
+    const paused = !!~arr[1].indexOf("[paused]")
+    const current = arr[0]
 
     return {
-      "current": arr[0],
-      "paused": !!~arr[1].indexOf("[paused]")
+      current,
+      paused
     };
   });
 };
 
 const handlers = {
-  post: {
-    next: (request, response, next) => {
-      spawn("mpc", [
+  "post": {
+    "next": (request, response, next) => {
+      spawnSlow("mpc", [
         "next"
       ]);
       response.status(200).send();
     },
-    previous: (request, response, next) => {
-      spawn("mpc", [
+    "previous": (request, response, next) => {
+      spawnSlow("mpc", [
         "prev"
       ]);
       response.status(200).send();
     },
-    sink: (request, response, next) => {
+    "sink": (request, response, next) => {
       let sink = request.body.sink;
 
       checkOutput("pactl", [
@@ -77,7 +111,7 @@ const handlers = {
 
         // TODO: This is making an assumption about the stream.
 
-        spawn("pactl", [
+        spawnSlow("pactl", [
           "move-sink-input",
           sink_input,
           sink
@@ -86,11 +120,11 @@ const handlers = {
         response.send();
       });
     },
-    pause: (request, response, next) => {
+    "pause": (request, response, next) => {
       let pause = request.body.pause;
       let port = request.body.port || 6600;
 
-      spawn("mpc", [
+      spawnSlow("mpc", [
         (pause) ? "pause" : "play",
         "--port",
         port
@@ -99,8 +133,8 @@ const handlers = {
       response.send();
     }
   },
-  get: {
-    current: (request, response, next) => {
+  "get": {
+    "current": (request, response, next) => {
       getCurrent().then(({ current, paused }) => {
         response.json({ current, paused });
       }, (error) => {
@@ -128,6 +162,7 @@ const routes = (() => {
 })();
 
 module.exports = {
-  routes
+  routes,
+  socket_connected
 };
 
