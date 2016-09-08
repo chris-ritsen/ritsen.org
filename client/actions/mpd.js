@@ -15,6 +15,32 @@ const unpause = () => {
   };
 };
 
+const previous = () => {
+  fetch(`/mpd/previous`, {
+    "headers": new Headers({
+      "Content-Type": "application/json"
+    }),
+    "method": ("POST")
+  });
+
+  return {
+    "type": "MPD_NEXT"
+  };
+};
+
+const next = () => {
+  fetch(`/mpd/next`, {
+    "headers": new Headers({
+      "Content-Type": "application/json"
+    }),
+    "method": ("POST")
+  });
+
+  return {
+    "type": "MPD_NEXT"
+  };
+};
+
 const sink = (target) => {
   fetch(`/mpd/sink`, {
     "body": JSON.stringify({
@@ -44,7 +70,9 @@ const setPause = (value) => (
 );
 
 export {
+  next,
   pause,
+  previous,
   sink,
   unpause
 };

@@ -6,7 +6,7 @@ import Radium from "radium";
 import React, { Component } from "react";
 import Socket from "../socket";
 import { connect } from "react-redux";
-import { debounce } from "lodash";
+import { throttle, debounce } from "lodash";
 
 let socket;
 
@@ -17,24 +17,49 @@ class AudioPlayer extends Component {
     }
   }
   componentWillMount() {
-    // TODO: React's server rendering doesn't have access to fetch
+    socket = Socket();
 
-    if (typeof fetch === "undefined") {
+    let updateCurrent = () => {
+      if (typeof fetch === "undefined") {
+        return;
+      }
+
+      fetch("/mpd/current", {
+        "headers": new Headers({
+          "Content-Type": "application/json"
+        }),
+        "method": ("GET")
+      })
+      .then(response => response.json())
+      .then(({ current, paused }) => {
+        this.setState({
+          current,
+          paused
+        });
+      });
+    };
+
+    if (typeof socket === "undefined") {
       return;
     }
 
-    fetch("/mpd/current", {
-      "headers": new Headers({
-        "Content-Type": "application/json"
-      }),
-      "method": ("GET")
-    })
-    .then(response => response.json())
-    .then(({ current }) => {
-      this.setState({
-        current
-      });
+    socket.on("connect", () => {
+      console.log("connected");
     });
+
+    socket.on("mpd", ({ paused, current, message }) => {
+      console.log(current, message, paused);
+      if (current) {
+        this.setState({
+          current,
+          paused
+        });
+      }
+    });
+
+    // TODO: React's server rendering doesn't have access to fetch
+
+    updateCurrent();
   }
   constructor(props, context) {
     super(props, context);
@@ -61,6 +86,14 @@ class AudioPlayer extends Component {
       dispatch(actions.mpd.unpause());
     };
 
+    const previous = () => {
+      dispatch(actions.mpd.previous());
+    };
+
+    const next = () => {
+      dispatch(actions.mpd.next());
+    };
+
     const style = {
       "base": {
         "display": "flex",
@@ -69,10 +102,13 @@ class AudioPlayer extends Component {
       },
       "buttons": {
         "display": "flex",
+        "flexWrap": "wrap",
         "justifyContent": "center"
       },
       "current": {
 				"fontFamily": "'PT Sans Narrow', sans-serif",
+        "fontSize": "1.5rem",
+        "marginTop": "1rem",
         "overflowX": "scroll",
         "whiteSpace": "nowrap"
       },
@@ -81,21 +117,36 @@ class AudioPlayer extends Component {
         "flexShrink": 0
       },
       "button": {
-        "margin": "1em 1em",
-        "minHeight": "50px",
-        "fontSize": "18px",
-        "borderRadius": 0,
         "WebkitAppearance": "none",
         "backgroundColor": "white",
+        "borderRadius": 0,
         "color": "black",
-        "padding": "1em"
+        "flexBasis": "125px",
+        "fontSize": "18px",
+        "margin": "1em 1em",
+        "minHeight": "50px",
+        "padding": "1em",
+        [media.mobile.landscape]: {
+          "flexGrow": 1,
+          "flexShrink": 0
+        },
+        [media.mobile.portrait]: {
+          "flexGrow": 1,
+          "flexShrink": 0
+        },
+        [media.huge.landscape]: {
+          "flexGrow": 0
+        },
+        [media.huge.portrait]: {
+          "flexGrow": 0
+        }
       }
     };
 
     return (
       <div style={style.base}>
         <h1 style={style.header}>Audio player</h1>
-        <div style={style.current}>{this.state.current}</div>
+        <div style={style.current}>{this.state.current} [{this.state.paused ? "Paused" : "Playing"}]</div>
 
         <fieldset>
           <legend>Playback</legend>
@@ -103,6 +154,11 @@ class AudioPlayer extends Component {
           <div style={style.buttons}>
             <button style={style.button} onClick={pause}>pause</button>
             <button style={style.button} onClick={unpause}>unpause</button>
+          </div>
+
+          <div style={style.buttons}>
+            <button style={style.button} onClick={previous}>previous</button>
+            <button style={style.button} onClick={next}>next</button>
           </div>
         </fieldset>
 
@@ -121,7 +177,7 @@ class AudioPlayer extends Component {
   }
 }
 
-AudioPlayer = connect()(AudioPlayer);
+AudioPlayer = connect()(Radium(AudioPlayer));
 
 export default AudioPlayer;
 

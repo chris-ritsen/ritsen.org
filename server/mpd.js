@@ -26,14 +26,32 @@ const checkOutput = (script, args) => {
 
 const getCurrent = () => {
   return checkOutput("mpc", [
-    "current",
     "-f",
-    "%file%"
-  ]);
+    "[[%artist% - ]%title%]|[%file%]"
+  ]).then((lines) => {
+    let arr = lines.split("\n");
+
+    return {
+      "current": arr[0],
+      "paused": !!~arr[1].indexOf("[paused]")
+    };
+  });
 };
 
 const handlers = {
   post: {
+    next: (request, response, next) => {
+      spawn("mpc", [
+        "next"
+      ]);
+      response.status(200).send();
+    },
+    previous: (request, response, next) => {
+      spawn("mpc", [
+        "prev"
+      ]);
+      response.status(200).send();
+    },
     sink: (request, response, next) => {
       let sink = request.body.sink;
 
@@ -83,8 +101,10 @@ const handlers = {
   },
   get: {
     current: (request, response, next) => {
-      getCurrent().then((current) => {
-        response.json({ current });
+      getCurrent().then(({ current, paused }) => {
+        response.json({ current, paused });
+      }, (error) => {
+        response.status(500).send("error");
       });
     }
   }
@@ -99,7 +119,9 @@ const routes = (() => {
   app.use(bodyParser.json());
 
   app.get("/current", handlers.get.current);
+  app.post("/next", handlers.post.next);
   app.post("/pause", handlers.post.pause);
+  app.post("/previous", handlers.post.previous);
   app.post("/sink", handlers.post.sink);
 
   return app;

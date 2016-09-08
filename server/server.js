@@ -1,7 +1,7 @@
 
 const Socket = require("socket.io");
 const express = require("express");
-const resolve = require("path").resolve;
+const path_resolve = require("path").resolve;
 const systemd = require("systemd");
 
 import React from "react";
@@ -90,9 +90,9 @@ app.use("/mpd", mpd.routes);
 
 // TODO: Move all router stuff out of here.
 
-router.use("/static", express.static(resolve(__dirname, "../static")));
-router.get("/main.css", (request, response) => response.sendFile(resolve(__dirname, "../common/main.css")));
-// router.get("/*", (request, response) => response.sendFile(resolve(__dirname, "../common/index.html")));
+router.use("/static", express.static(path_resolve(__dirname, "../static")));
+router.get("/main.css", (request, response) => response.sendFile(path_resolve(__dirname, "../common/main.css")));
+// router.get("/*", (request, response) => response.sendFile(path_resolve(__dirname, "../common/index.html")));
 
 app.use(router);
 app.use(handleRender)
@@ -109,10 +109,81 @@ let connections = 0;
 let watchProps;
 const io = Socket(app.listen(port, host, errorHandler));
 
+let watchingMpd = false;
+
 // TODO: Where should the socket code live?
+
+const checkOutput = (script, args) => {
+  const spawn = require("child_process").spawn;
+  let child = spawn(script, args);
+
+  let promise = new Promise((resolve, reject) => {
+    let buffer = "";
+
+    child.stdout.on("data", (data) => {
+      buffer += data;
+    });
+
+    child.on("exit", () => {
+      let response = buffer.toString("utf8").trim();
+
+      resolve(response);
+    });
+  });
+
+  return promise;
+};
+
+const getCurrent = () => {
+  return checkOutput("mpc", [
+    "-f",
+    "[[%artist% - ]%title%]|[%file%]"
+  ]).then((lines) => {
+    let arr = lines.split("\n");
+
+    return {
+      "current": arr[0],
+      "paused": !!~arr[1].indexOf("[paused]")
+    };
+  });
+};
 
 io.sockets.on("connection", (socket) => {
   let timeNow;
   let pathNow;
+
+  console.log("connected");
+  const { throttle } = require("lodash");
+
+  const spawn = require("child_process").spawn;
+
+  const checkOutputForever = (script, args) => {
+    let child = spawn(script, args);
+
+    child.stdout.on("data", (data) => {
+      let messages = data.toString("utf8").trim().split("\n");
+
+      messages.forEach((message) => {
+        io.emit("mpd", { message });
+
+        if (message === "player") {
+          getCurrent().then(({current, paused}) => {
+            io.emit("mpd", { current, paused });
+          });
+        }
+      })
+    });
+  };
+
+  const getCurrentForever = () => {
+    checkOutputForever("mpc", [
+      "idleloop"
+    ]);
+  };
+
+  if (!watchingMpd) {
+    getCurrentForever();
+    watchingMpd = true;
+  }
 });
 

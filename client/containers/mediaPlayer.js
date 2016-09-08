@@ -20,6 +20,18 @@ class MediaPlayer extends Component {
   componentWillMount() {
     socket = Socket();
 
+    if (typeof socket === "undefined") {
+      return;
+    }
+
+    socket.on("connect", () => {
+      console.log("connected");
+    });
+
+    socket.on("mpd", (message) => {
+      console.log("mpd event", message);
+    });
+
     if (typeof fetch === "undefined") {
       return;
     }
