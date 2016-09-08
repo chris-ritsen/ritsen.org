@@ -31,9 +31,10 @@ class AudioPlayer extends Component {
         "method": ("GET")
       })
       .then(response => response.json())
-      .then(({ current, paused }) => {
+      .then(({ current, length, paused }) => {
         this.setState({
           current,
+          length,
           paused
         });
       });
@@ -43,10 +44,11 @@ class AudioPlayer extends Component {
       return;
     }
 
-    socket.on("mpd", ({ paused, current, message }) => {
+    socket.on("mpd", ({ length, paused, current, message }) => {
       if (current) {
         this.setState({
           current,
+          length,
           paused
         });
       }
@@ -141,7 +143,7 @@ class AudioPlayer extends Component {
     return (
       <div style={style.base}>
         <h1 style={style.header}>Audio player</h1>
-        <div style={style.current}>{this.state.current} [{this.state.paused ? "Paused" : "Playing"}]</div>
+        <div style={style.current}>{this.state.current} [{this.state.paused ? "Paused" : "Playing"}] {this.state.length}</div>
 
         <fieldset>
           <legend>Playback</legend>

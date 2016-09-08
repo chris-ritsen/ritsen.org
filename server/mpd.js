@@ -1,6 +1,6 @@
 
 import { spawn } from "child_process";
-import { startsWith, throttle } from "lodash";
+import { compact, startsWith, throttle } from "lodash";
 
 const spawnSlow = throttle(spawn, 80);
 let watchingMpd = false;
@@ -33,9 +33,12 @@ const getCurrent = () => {
     let arr = lines.split("\n");
     const paused = !!~arr[1].indexOf("[paused]")
     const current = arr[0]
+    const time = compact(arr[1].split(" "))[2].split("/");
+    const length = time[1];
 
     return {
       current,
+      length,
       paused
     };
   }, (error) => { console.log(error); });
@@ -51,8 +54,8 @@ const checkOutputForever = function (script, args) {
       this.emit("mpd", { message });
     })
 
-    getCurrent().then(({current, paused}) => {
-      this.emit("mpd", { current, paused });
+    getCurrent().then(({current, length, paused }) => {
+      this.emit("mpd", { current, length, paused });
     });
   });
 };
@@ -132,8 +135,8 @@ const handlers = {
   },
   "get": {
     "current": (request, response, next) => {
-      getCurrent().then(({ current, paused }) => {
-        response.json({ current, paused });
+      getCurrent().then(({ current, length, paused }) => {
+        response.json({ current, length, paused });
       }, (error) => {
         response.status(500).send("error");
       });
