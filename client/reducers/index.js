@@ -2,6 +2,10 @@
 import "whatwg-fetch";
 
 let doPost = (url, body) => {
+  if (typeof fetch === "undefined") {
+    return;
+  }
+
   fetch(url, {
     "body": JSON.stringify(body),
     "headers": new Headers({
@@ -19,29 +23,28 @@ const index = (state = {
 
   switch (action.type) {
   case "MPV_PROP":
-      newState = Object.assign({}, state, action.prop);
-      // console.log(state, action, newState);
-      return newState;
+    newState = Object.assign({}, state, action.prop);
+    return newState;
   case "MPV_VOLUME":
-      newState = Object.assign({}, state);
-      newState["volume"] = action.volume;
-      return newState;
+    newState = Object.assign({}, state);
+    newState["volume"] = action.volume;
+    return newState;
   case "MPV_PLAYLIST":
-      newState = Object.assign({}, state);
-      newState["playlist"] = action.playlist;
-      return newState;
+    newState = Object.assign({}, state);
+    newState["playlist"] = action.playlist;
+    return newState;
   case "MPV_PAUSE":
-      doPost("/mpv/pause", {
-        "pause": true
-      });
+    doPost("/mpv/pause", {
+      "pause": true
+    });
 
-      return state;
+    return state;
   case "MPV_UNPAUSE":
-      doPost("/mpv/pause", {
-        "pause": false
-      });
+    doPost("/mpv/pause", {
+      "pause": false
+    });
 
-      return state;
+    return state;
   default:
     return state;
   }

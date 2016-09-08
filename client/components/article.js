@@ -129,5 +129,7 @@ class Article extends Component {
   }
 }
 
-Article = withRouter(Radium(Article)); export default Article;
+Article = withRouter(Radium(Article));
+
+export default Article;
 

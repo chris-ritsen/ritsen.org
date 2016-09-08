@@ -168,7 +168,6 @@ const sockets = [
   }
 ];
 
-
 module.exports = {
   routes,
   sockets

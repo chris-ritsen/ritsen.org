@@ -60,7 +60,7 @@ const sink = (target) => {
 const setPause = (value) => (
   fetch(`/mpd/pause`, {
     "body": JSON.stringify({
-      pause: value
+      "pause": value
     }),
     "headers": new Headers({
       "Content-Type": "application/json"

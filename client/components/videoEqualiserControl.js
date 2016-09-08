@@ -4,7 +4,7 @@ import SliderControl from "./sliderControl";
 
 class VideoEqualiserControl extends Component {
   static propTypes = {
-    prop: React.PropTypes.oneOf([
+    "prop": React.PropTypes.oneOf([
       "brightness",
       "contrast",
       "gamma",

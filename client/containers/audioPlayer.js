@@ -103,7 +103,7 @@ class AudioPlayer extends Component {
         "justifyContent": "center"
       },
       "current": {
-				"fontFamily": "'PT Sans Narrow', sans-serif",
+        "fontFamily": "'PT Sans Narrow', sans-serif",
         "fontSize": "1.5rem",
         "marginTop": "1rem",
         "overflowX": "scroll",

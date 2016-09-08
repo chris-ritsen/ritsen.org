@@ -83,7 +83,7 @@ class MediaPlayer extends Component {
         "justifyContent": "center"
       },
       "current": {
-				"fontFamily": "'PT Sans Narrow', sans-serif",
+        "fontFamily": "'PT Sans Narrow', sans-serif",
         "overflowX": "scroll"
       },
       "header": {

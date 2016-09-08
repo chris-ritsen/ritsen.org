@@ -35,7 +35,7 @@ class SliderControl extends Component {
     const { state, dispatch } = this.props;
 
     this.setState(Object.assign({}, this.state, {
-      value: this.props.defaultValue
+      "value": this.props.defaultValue
     }));
 
     dispatch(actions.mpv.setProp(this.props.prop, this.props.defaultValue));
@@ -44,7 +44,7 @@ class SliderControl extends Component {
     super(props, context);
 
     this.state = {
-      value: this.props.defaultValue || 0
+      "value": this.props.defaultValue || 0
     }
   }
   render() {
@@ -65,7 +65,7 @@ class SliderControl extends Component {
           "flexWrap": "wrap"
         }
       },
-      text: {
+      "text": {
         [media.mobile.portrait]: {
           "order": "0",
           "flexBasis": "auto",

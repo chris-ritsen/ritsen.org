@@ -10,13 +10,6 @@ import { browserHistory, Router, Route } from "react-router";
 
 import routes from "../../common/routes";
 
-// import { match, Router } from "react-router";
-// import routes from "./routes";
-
-// match({ history, routes }, (error, redirectLocation, renderProps) => {
-//   render(<Router {...renderProps} />, rootEl)
-// })
-
 const Root = ({ store }) => (
   <Provider store={store}>
     <StyleRoot id="style-root">

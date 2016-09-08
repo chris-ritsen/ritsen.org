@@ -8,12 +8,12 @@ class SiteHeader extends Component {
   render() {
     const links = [
       {
-        text: "Media Player",
-        to: "/media_player"
+        "text": "Media Player",
+        "to": "/media_player"
       },
       {
-        text: "Audio Player",
-        to: "/audio_player"
+        "text": "Audio Player",
+        "to": "/audio_player"
       }
     ];
 

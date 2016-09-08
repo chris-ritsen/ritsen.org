@@ -9,7 +9,7 @@ import SiteHeader from "./siteHeader.js";
 class HomePage extends Component {
   render() {
     const style = {
-      base: {
+      "base": {
         "backgroundColor": "black",
         "display": "flex",
         "flexDirection": "column",

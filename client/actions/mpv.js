@@ -45,7 +45,7 @@ const setProp = (propName, propValue) => (
   .then(response => response.json())
   .then((prop) => ({
     "type": "MPV_PROP",
-    prop: {
+    "prop": {
       [propName]: prop[propName]
     }
   }))
