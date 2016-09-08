@@ -44,7 +44,6 @@ class AudioPlayer extends Component {
     }
 
     socket.on("mpd", ({ paused, current, message }) => {
-      console.log(paused, current, message);
       if (current) {
         this.setState({
           current,

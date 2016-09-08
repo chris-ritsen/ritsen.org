@@ -52,7 +52,6 @@ const checkOutputForever = function (script, args) {
     })
 
     getCurrent().then(({current, paused}) => {
-      console.log(current, paused);
       this.emit("mpd", { current, paused });
     });
   });
